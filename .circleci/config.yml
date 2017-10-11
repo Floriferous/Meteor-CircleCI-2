@@ -15,7 +15,7 @@ jobs:
           TZ: "/usr/share/zoneinfo/Europe/Zurich"
           NODE_ENV: development
           TOOL_NODE_FLAGS: "--max_old_space_size=4096 --optimize_for_size --gc-interval=100"
-          CI_RESULTS_FILE: $CIRCLE_TEST_REPORTS/xunit/unit.xml
+          CI_RESULTS_FILE: ./results/unit.xml
     steps:
       - checkout
       - restore_cache:
@@ -57,7 +57,7 @@ jobs:
       - run:
           name: install npm packages
           command: meteor npm install
-      # - run: mkdir ~/results
+      - run: mkdir ./results
       - run:
           name: run tests
           command: meteor npm run test-CI
@@ -84,6 +84,6 @@ jobs:
             - ./node_modules/
             - ~/.npm/
       - store_test_results:
-          path: $CIRCLE_TEST_REPORTS
+          path: ./results
       - store_artifacts:
-          path: $CIRCLE_TEST_REPORTS
+          path: ./results
