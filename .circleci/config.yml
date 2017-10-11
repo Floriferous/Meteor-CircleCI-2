@@ -61,8 +61,8 @@ jobs:
           name: install npm packages
           command: meteor npm install
       - run:
-        name: create results directory
-        command: mkdir ./results
+          name: create results directory
+          command: mkdir ./results
       - run:
           name: run tests
           command: meteor npm run test-CI
