@@ -6,6 +6,6 @@ describe('Client tests are working', () => {
   });
 
   it('does string manipulation 2', () => {
-    expect('a' + 2).to.equal('a22');
+    expect('a' + 2).to.equal('a2');
   });
 });
