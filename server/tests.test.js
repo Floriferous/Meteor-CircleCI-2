@@ -8,4 +8,8 @@ describe('Server tests are working', () => {
   it('does more math', () => {
     expect(1 - 1).to.equal(0);
   });
+
+  it('does even more math', () => {
+    expect(1 - 2).to.equal(-1);
+  });
 });
