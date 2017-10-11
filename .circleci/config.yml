@@ -18,12 +18,16 @@ jobs:
     steps:
       - checkout
       - restore_cache:
+          name: restore build
           key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
       - restore_cache:
+          name: restore meteor
           key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
       - restore_cache:
+          name: restore meteor packages
           key: meteor-packages-{{ checksum ".meteor/versions" }}-{{ checksum ".circleci/config.yml" }}
       - restore_cache:
+          name: restore npm packages
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
       - run:
           name: restore cached meteor bin
@@ -56,7 +60,9 @@ jobs:
       - run:
           name: install npm packages
           command: meteor npm install
-      - run: mkdir ./results
+      - run:
+        name: create results directory
+        command: mkdir ./results
       - run:
           name: run tests
           command: meteor npm run test-CI
@@ -66,18 +72,22 @@ jobs:
             mkdir -p ~/build-temp
             cp /usr/local/bin/meteor ~/build-temp/meteor-bin
       - save_cache:
+          name: save build
           key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - ~/build-temp
       - save_cache:
+          name: save meteor
           key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - ~/.meteor
       - save_cache:
+          name: save meteor packages
           key: meteor-packages-{{ checksum ".meteor/versions" }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - .meteor/
       - save_cache:
+          name: save npm packages
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
           paths:
             - ./node_modules/
