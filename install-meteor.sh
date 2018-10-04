@@ -1,6 +1,6 @@
 #!/bin/bash
 
-METEOR_VERSION=1.8-rc.17
+METEOR_VERSION=1.8-rc.16
 
 cd ~
 git clone https://github.com/meteor/meteor.git --recursive ./bin
