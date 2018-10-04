@@ -32,61 +32,41 @@ jobs:
       - run:
           name: install Meteor
           command: ./install-meteor.sh
+      #   - run:
+      #       name: check versions
+      #       command: |
+      #         echo "Meteor version:"
+      #         # this forces Meteor to download whatever release your project is using
+      #         meteor --version
+      #         which meteor
+      #         echo "Meteor node version:"
+      #         meteor node -v
+      #         echo "Meteor npm version:"
+      #         meteor npm -v
+      #         echo "Java version:"
+      #         java -version
+      #   - run:
+      #       name: setup all projects
+      #       command: ./scripts/setup.sh
+        - run:
+            name: create results directory
+            command: mkdir ./results
       - run:
-          name: check versions
-          command: |
-            echo "Meteor version:"
-            # this forces Meteor to download whatever release your project is using
-            meteor --version
-            which meteor
-            echo "Meteor node version:"
-            meteor node -v
-            echo "Meteor npm version:"
-            meteor npm -v
-            echo "Java version:"
-            java -version
+          name: install modules
+          command: meteor npm i
       - run:
-          name: setup all projects
-          command: ./scripts/setup.sh
-      - run:
-          name: create results directory
-          command: mkdir ./results
-      - run:
-          name: run app tests
-          command: |
-            cd sApp
-            meteor npm run test-CI
-      - run:
-          name: run www tests
-          command: |
-            cd sWww
-            meteor npm run test-CI
-      - run:
-          name: copy meteor bin to build cache
-          command: |
-            mkdir -p ~/build-temp
-            cp /usr/local/bin/meteor ~/build-temp/meteor-bin
-      - save_cache:
-          name: save build
-          key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
-          paths:
-            - ~/build-temp
-      - save_cache:
-          name: save meteor
-          key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
-          paths:
-            - ~/.meteor
-      - save_cache:
-          name: save meteor packages
-          key: meteor-packages-{{ checksum ".meteor/versions" }}-{{ checksum ".circleci/config.yml" }}
-          paths:
-            - .meteor/
-      - save_cache:
-          name: save npm packages
-          key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
-          paths:
-            - ./node_modules/
-            - ~/.npm/
+          name: run tests
+          command: meteor npm run test-CI
+      #   - run:
+      #       name: run www tests
+      #       command: |
+      #         cd sWww
+      #         meteor npm run test-CI
+      #   - run:
+      #       name: copy meteor bin to build cache
+      #       command: |
+      #         mkdir -p ~/build-temp
+      #         cp /usr/local/bin/meteor ~/build-temp/meteor-bin
       - store_test_results:
           path: ./results
       - store_artifacts:

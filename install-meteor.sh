@@ -6,7 +6,7 @@ cd ~
 git clone https://github.com/meteor/meteor.git --recursive ./bin
 cd bin
 git checkout release/METEOR@$METEOR_VERSION
-./meteor --version || true
+./meteor --help
 
 # mkdir ~/bin
 # ln meteor ~/bin/meteor
