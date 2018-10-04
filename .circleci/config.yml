@@ -16,7 +16,7 @@ jobs:
           NODE_ENV: development
           TOOL_NODE_FLAGS: '--max_old_space_size=4096 --optimize_for_size --gc-interval=100'
     steps:
-      - run: echo "alias meteor=~/meteor/meteor" >> ~/.profile
+      #   - run: echo "alias meteor=~/meteor/meteor" >> ~/.profile
       - checkout
       - run:
           name: restore cached meteor bin

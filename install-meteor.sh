@@ -8,9 +8,4 @@ cd meteor
 git checkout $METEOR_VERSION
 ./meteor --version
 
-# echo "alias meteor=~/meteor/meteor" >> ~/.profile
-# source ~/.bashrc
-alias
-
-cd /home/$(whoami)/app
-meteor -v
+sudo ln meteor /bin/meteor
