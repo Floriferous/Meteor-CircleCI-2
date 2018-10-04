@@ -2,19 +2,21 @@
   "name": "Meteor-CircleCI-2",
   "private": true,
   "scripts": {
+    "test": "meteor test --driver-package meteortesting:mocha",
     "start": "meteor run",
     "test2": "TEST_WATCH=1 meteor test --driver-package meteortesting:mocha --port 3100",
     "test3": "TEST_WATCH=1 TEST_BROWSER_DRIVER=chrome meteor test --driver-package meteortesting:mocha --port 3100",
     "test4": "SERVER_TEST_REPORTER=xunit XUNIT_FILE=./results/unit.xml TEST_BROWSER_DRIVER=chrome meteor test --once --driver-package meteortesting:mocha --port 3100",
-    "test-CI": "SERVER_TEST_REPORTER=xunit XUNIT_FILE=~/app/results/unit.xml TEST_BROWSER_DRIVER=chrome meteor test --once --driver-package meteortesting:mocha"
+    "test-CI": "SERVER_TEST_REPORTER=xunit XUNIT_FILE=~/app/results/unit.xml meteor test --once --driver-package meteortesting:mocha"
   },
   "dependencies": {
+    "@babel/runtime": "^7.1.2",
     "babel-runtime": "^6.20.0",
-    "meteor-node-stubs": "~0.2.4"
+    "meteor-node-stubs": "~0.4.1"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "chromedriver": "^2.33.1",
-    "selenium-webdriver": "^3.6.0"
+    "selenium-webdriver": "^4.0.0-alpha.1"
   }
 }
