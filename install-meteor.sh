@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 METEOR_VERSION=1.8-rc.17
 
