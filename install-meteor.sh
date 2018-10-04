@@ -8,8 +8,9 @@ cd meteor
 git checkout $METEOR_VERSION
 ./meteor --version
 
-echo "alias meteor=~/meteor/meteor" >> ~/.bashrc
+echo "alias mymeteor=~/meteor/meteor" >> ~/.bashrc
 source ~/.bashrc
+alias
 
 cd /home/$(whoami)/app
-meteor -v
+mymeteor -v
