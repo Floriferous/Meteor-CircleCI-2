@@ -8,4 +8,5 @@ cd meteor
 git checkout $METEOR_VERSION
 ./meteor --version
 
-sudo ln meteor /bin/meteor
+mkdir ~/bin
+ln meteor ~/bin/meteor
