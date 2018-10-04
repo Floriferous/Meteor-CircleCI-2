@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 METEOR_VERSION=1.8-rc.17
 
@@ -8,7 +8,7 @@ cd meteor
 git checkout $METEOR_VERSION
 ./meteor --version
 
-# echo "alias mymeteor=~/meteor/meteor" >> ~/.bashrc
+# echo "alias meteor=~/meteor/meteor" >> ~/.profile
 # source ~/.bashrc
 alias
 
