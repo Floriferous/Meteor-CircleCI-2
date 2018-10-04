@@ -48,9 +48,9 @@ jobs:
       #   - run:
       #       name: setup all projects
       #       command: ./scripts/setup.sh
-        - run:
-            name: create results directory
-            command: mkdir ./results
+      - run:
+          name: create results directory
+          command: mkdir ./results
       - run:
           name: install modules
           command: meteor npm i
