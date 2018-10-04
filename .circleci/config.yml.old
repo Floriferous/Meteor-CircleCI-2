@@ -12,11 +12,23 @@ jobs:
           LC_NUMERIC: en_US.UTF-8
           METEOR_BIN_TMP_DIR: /home/circleci/build-temp/
           METEOR_BIN_TMP_FILE: meteor-bin-temp
-          TZ: '/usr/share/zoneinfo/Europe/Zurich'
+          TZ: "/usr/share/zoneinfo/Europe/Zurich"
           NODE_ENV: development
-          TOOL_NODE_FLAGS: '--max_old_space_size=4096 --optimize_for_size --gc-interval=100'
+          TOOL_NODE_FLAGS: "--max_old_space_size=4096 --optimize_for_size --gc-interval=100"
     steps:
       - checkout
+      - restore_cache:
+          name: restore cached build
+          key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
+      - restore_cache:
+          name: restore cached meteor
+          key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
+      - restore_cache:
+          name: restore cached meteor packages
+          key: meteor-packages-{{ checksum ".meteor/versions" }}-{{ checksum ".circleci/config.yml" }}
+      - restore_cache:
+          name: restore cached npm packages
+          key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
       - run:
           name: restore cached meteor bin
           command: |
@@ -29,7 +41,9 @@ jobs:
             fi
       - run:
           name: install Meteor
-          command: ./install-meteor.sh
+          command: |
+            # only install meteor if bin isn't found
+            command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
       - run:
           name: check versions
           command: |
@@ -44,21 +58,14 @@ jobs:
             echo "Java version:"
             java -version
       - run:
-          name: setup all projects
-          command: ./scripts/setup.sh
+          name: install npm packages
+          command: meteor npm install
       - run:
           name: create results directory
           command: mkdir ./results
       - run:
-          name: run app tests
-          command: |
-            cd sApp
-            meteor npm run test-CI
-      - run:
-          name: run www tests
-          command: |
-            cd sWww
-            meteor npm run test-CI
+          name: run tests
+          command: meteor npm run test-CI
       - run:
           name: copy meteor bin to build cache
           command: |
