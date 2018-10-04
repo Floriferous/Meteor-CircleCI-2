@@ -7,7 +7,9 @@ git clone https://github.com/meteor/meteor.git --recursive
 cd meteor
 git checkout $METEOR_VERSION
 ./meteor --version
-alias meteor=/home/$(whoami)/meteor/meteor
+
+echo "alias meteor=~/meteor/meteor" >> ~/.bashrc
+source ~/.bashrc
 
 cd /home/$(whoami)/app
 meteor -v
